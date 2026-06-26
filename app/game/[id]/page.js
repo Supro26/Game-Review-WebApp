@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default async function GamePage({ params }) {
   const { id } = await params;
 
@@ -20,7 +21,8 @@ export default async function GamePage({ params }) {
             <div className="flex items-center gap-3 text-sm text-zinc-400">
               <span>2024</span>
               <span className="text-zinc-600">•</span>
-              <span>Action / RPG</span>
+              <Link href="/genre/action" className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-3 py-1 rounded-full transition-colors">Action</Link>
+              <Link href="/genre/rpg" className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-3 py-1 rounded-full transition-colors">RPG</Link>
               <span className="text-zinc-600">•</span>
               <span>PC, PS5, Xbox</span>
             </div>

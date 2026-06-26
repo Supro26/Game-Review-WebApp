@@ -20,8 +20,8 @@ export default function Navbar() {
         <Link href="/hub" className="text-white hover:text-zinc-400 transition-colors">
           Hub
         </Link>
-        <Link href="/playlist" className="text-white hover:text-zinc-400 transition-colors">
-          Playlist
+        <Link href="/leaderboard" className="text-white hover:text-zinc-400 transition-colors">
+          Leaderboard
         </Link>
       </div>
 
