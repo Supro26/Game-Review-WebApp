@@ -1,5 +1,6 @@
 import GameCard from "@/components/game/GameCard";
 import Link from "next/link";
+import { Flame, Star, GamepadDirectional, Gem, CircleStar } from "lucide-react";
 
 const trendingGames = [
   { id: 1, title: "First Light 007", cover: null },
@@ -87,25 +88,37 @@ export default function DiscoverPage() {
 
         {/* Trending */}
         <div className="mb-12">
-          <SectionHeader emoji="🔥" title="Trending" />
+          <div className="flex gap-1">
+          <Flame color="#7d2428" strokeWidth={2.15}/>
+          <SectionHeader title="Trending" />
+          </div>
           <GameRow games={trendingGames} />
         </div>
 
         {/* Top Rated */}
         <div className="mb-12">
-          <SectionHeader emoji="⭐" title="Top Rated" />
+          <div className="flex gap-1">
+          <Star color="#ad8a08" strokeWidth={1.75} />
+          <SectionHeader title="Top Rated" />
+          </div>
           <GameRow games={topRatedGames} />
         </div>
 
         {/* Recently Released */}
         <div className="mb-12">
-          <SectionHeader emoji="🎮" title="Recently Released" />
+          <div className="flex gap-1">
+          <GamepadDirectional size={26} color="#3f8f6a" strokeWidth={1.75} />
+          <SectionHeader title="Recently Released" />
+          </div>
           <GameRow games={recentlyReleased} />
         </div>
 
         {/* Hidden Gems */}
         <div className="mb-12">
-          <SectionHeader emoji="💎" title="Hidden Gems" />
+          <div className="flex gap-1">
+          <Gem size={26} color="#567aa7" strokeWidth={1.75} />
+          <SectionHeader title="Hidden Gems" />
+          </div>
           <GameRow games={hiddenGems} />
         </div>
 
@@ -163,7 +176,7 @@ export default function DiscoverPage() {
         {/* Top Studios in sidebar */}
         <div>
           <h2 className="text-lg font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
-            Top Studios <span className="text-yellow-400">🏆</span>
+            Top Studios <CircleStar color="#633468" strokeWidth={1.75} />
           </h2>
           <div className="flex flex-col gap-4">
             {[

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 // --- Mock data (replace with real API/DB calls later) ---
 const MOCK_RESULTS = [
@@ -29,6 +29,7 @@ export default function Navbar() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const pathname = usePathname();
   const wrapperRef = useRef(null);
   const userRef = useRef(null);
   const router = useRouter();
@@ -75,12 +76,32 @@ export default function Navbar() {
 
       {/* Nav Links */}
       <div className="flex items-center gap-10">
-        <Link href="/discover" className="text-white hover:text-zinc-400 transition-colors">Discover</Link>
-        <Link href="/genre" className="text-white hover:text-zinc-400 transition-colors">Genre</Link>
-        <Link href="/hub" className="text-white hover:text-zinc-400 transition-colors">Hub</Link>
-        <Link href="/leaderboard" className="text-white hover:text-zinc-400 transition-colors">Leaderboard</Link>
+      {[
+  { href: "/discover",    label: "Discover",    dot: "#748e5e" },
+  { href: "/genre",       label: "Genre",       dot: "#c791ad" },
+  { href: "/hub",         label: "Hub",         dot: "#cc8a58" },
+  { href: "/leaderboard", label: "Leaderboard", dot: "#4c77c1" },
+].map(({ href, label, dot }) => (
+  <Link
+    key={href}
+    href={href}
+    className={`flex items-center gap-1.5 transition-colors ${
+      pathname === href ? "text-white" : "text-zinc-400 hover:text-zinc-200"
+    }`}
+  >
+    <span
+      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+        pathname === href ? "opacity-100 scale-100" : "opacity-0 scale-0"
+      }`}
+      style={{
+        background: dot,
+        transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      }}
+    />
+    {label}
+  </Link>
+))}
       </div>
-
       {/* Right Side — Search + User */}
       <div className="flex items-center gap-4">
 
