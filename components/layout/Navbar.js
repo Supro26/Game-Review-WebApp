@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { createClient } from "../../utils/supabase/client";
 import { useRouter, usePathname } from "next/navigation";
 
 // --- Mock data (replace with real API/DB calls later) ---
@@ -29,7 +30,21 @@ export default function Navbar() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const pathname = usePathname();
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
   const wrapperRef = useRef(null);
   const userRef = useRef(null);
   const router = useRouter();
@@ -212,7 +227,9 @@ export default function Navbar() {
               {/* User info header */}
               <div className="px-4 py-3 border-b border-zinc-800">
                 <p className="text-white text-sm font-medium">My Account</p>
-                <p className="text-zinc-500 text-xs mt-0.5">@username</p>
+                <p className="text-zinc-500 text-xs mt-0.5">
+                  @{user?.user_metadata?.username ?? "user"}
+                </p>
               </div>
 
               {/* Menu items */}
@@ -246,7 +263,11 @@ export default function Navbar() {
               {/* Divider + Logout */}
               <div className="border-t border-zinc-800 py-1">
                 <button
-                  onClick={() => { setUserOpen(false); /* add logout logic here */ }}
+                  onClick={async () => {
+                  setUserOpen(false);
+                  await supabase.auth.signOut();
+                  router.push("/login");
+                  }}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:bg-zinc-800 hover:text-red-300 transition-colors w-full text-left"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
