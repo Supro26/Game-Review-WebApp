@@ -234,7 +234,7 @@ export default function Navbar() {
 
               {/* Menu items */}
               <div className="py-1">
-                <Link href="/user/me" onClick={() => setUserOpen(false)}
+                <Link href={`/user/${user?.user_metadata?.username ?? "me"}`} onClick={() => setUserOpen(false)}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632z" />

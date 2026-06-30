@@ -30,7 +30,7 @@ export default async function UserProfilePage({ params }) {
         {/* Username + Stats */}
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">
-            {username === "me" ? "UserName" : username}
+            {username}
           </h1>
           <div className="flex items-center gap-4 text-zinc-400 text-sm">
             <span><strong className="text-white">2</strong> Followers</span>
