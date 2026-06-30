@@ -14,6 +14,15 @@ export default function LoginPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  async function handleGoogleLogin() {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+  }
+
   async function handleLogin() {
     setLoading(true)
     setError(null)
@@ -56,6 +65,13 @@ export default function LoginPage() {
           className="bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition"
         >
           {loading ? "Logging in..." : "Log In"}
+        </button>
+
+        <button
+          onClick={handleGoogleLogin}
+          className="bg-white hover:bg-gray-100 text-gray-900 py-2 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+        >
+          Continue with Google
         </button>
 
         <p className="text-gray-400 text-sm text-center">
